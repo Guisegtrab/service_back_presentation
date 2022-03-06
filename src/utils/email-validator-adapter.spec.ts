@@ -1,4 +1,4 @@
-import { EmailValidatorAdapter } from './email-validator'
+import { EmailValidatorAdapter } from './email-validator-adapter'
 import validator from 'validator'
 
 jest.mock('validator', () => ({
@@ -7,16 +7,26 @@ jest.mock('validator', () => ({
   }
 }))
 
+const makeSut = (): EmailValidatorAdapter => {
+  return new EmailValidatorAdapter()
+}
+
 describe('EmailValidator Adapter', () => {
-  test('should return false if validaror return false', () => {
-    const sut = new EmailValidatorAdapter()
+  test('deve retornar false se validar ou retornar false', () => {
+    const sut = makeSut()
     jest.spyOn(validator, 'isEmail').mockReturnValueOnce(false)
     const isValid = sut.isValid('invalid_email@mail.com')
     expect(isValid).toBe(false)
   })
-  test('should return true if validaror return true', () => {
-    const sut = new EmailValidatorAdapter()
+  test('deve retornar true se validar ou retornar true', () => {
+    const sut = makeSut()
     const isValid = sut.isValid('invalid_email@mail.com')
     expect(isValid).toBe(true)
+  })
+  test('deve chamar o validador com o email correto', () => {
+    const sut = makeSut()
+    const isEmailSpy = jest.spyOn(validator, 'isEmail')
+    sut.isValid('any_email@mail.com')
+    expect(isEmailSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 })

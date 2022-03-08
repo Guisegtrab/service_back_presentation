@@ -62,20 +62,20 @@ const makeSut = (): SutTypes => {
 }
 
 describe('LogController Decorator', () => {
-  test('Should call controller handle', async () => {
+  test('Deve chamar o handle do controlador', async () => {
     const { sut, controllerStub } = makeSut()
     const handleSpy = jest.spyOn(controllerStub, 'handle')
     await sut.handle(makeFakeRequest())
     expect(handleSpy).toHaveBeenCalledWith(makeFakeRequest())
   })
 
-  test('Should return the same result of the controller', async () => {
+  test('Deve retornar o mesmo resultado do controller', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(ok(makeFakeAccount()))
   })
 
-  test('Should call LogErrorRepository with correct error if controller returns a server error', async () => {
+  test('Deve chamar LogErrorRepository com erro correto se o controlador retornar um erro de servidor', async () => {
     const { sut, controllerStub, logErrorRepositoryStub } = makeSut()
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
     jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(makeFakeServerError())))

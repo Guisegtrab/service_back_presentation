@@ -7,7 +7,7 @@ const makeSut = (): LogMongoRepository => {
   return new LogMongoRepository()
 }
 
-describe('Log Mongo Repository', () => {
+describe('Repositório Log Mongo', () => {
   let errorCollection: Collection
 
   beforeAll(async () => {
@@ -23,7 +23,7 @@ describe('Log Mongo Repository', () => {
     await errorCollection.deleteMany({})
   })
 
-  test('Should create an error log on success', async () => {
+  test('Deve criar um log de erro em caso de sucesso', async () => {
     const sut = makeSut()
     await sut.logError('any_error')
     const count = await errorCollection.countDocuments()

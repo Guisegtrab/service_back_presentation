@@ -16,12 +16,12 @@ describe('SignUp Routes', () => {
     await accountCollection.deleteMany({})
   })
 
-  test('Deve retornar uma conta em caso de sucesso', async () => {
+  test('Should return an account on success', async () => {
     await request(app)
       .post('/api/signup')
       .send({
-        name: 'Guilherme',
-        email: 'guisegtrab@gmail.com',
+        name: 'Rodrigo',
+        email: 'rodrigo.manguinho@gmail.com',
         password: '123',
         passwordConfirmation: '123'
       })

@@ -46,7 +46,7 @@ const makeSut = (): SutTypes => {
 }
 
 describe('Login Controller', () => {
-  test('Should call Authentication with correct values', async () => {
+  test('Deve chamar Autenticação com valores corretos', async () => {
     const { sut, authenticationStub } = makeSut()
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeFakeRequest())
@@ -56,27 +56,27 @@ describe('Login Controller', () => {
     })
   })
 
-  test('Should return 401 if invalid credentials are provided', async () => {
+  test('Deve retornar 401 se forem fornecidas credenciais inválidas', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(unauthorized())
   })
 
-  test('Should return 500 if Authentication throws', async () => {
+  test('Deve retornar 500 se Autenticação', async () => {
     const { sut, authenticationStub } = makeSut()
     jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 200 if valid credentials are provided', async () => {
+  test('Deve retornar 200 se credenciais válidas forem fornecidas', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 
-  test('Should call Validation with correct value', async () => {
+  test('Deve chamar Validação com valor correto', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
     const httpRequest = makeFakeRequest()
@@ -84,7 +84,7 @@ describe('Login Controller', () => {
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 
-  test('Should return 400 if Validation returns an error', async () => {
+  test('Deve retornar 400 se a validação retornar um erro', async () => {
     const { sut, validationStub } = makeSut()
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
     const httpResponse = await sut.handle(makeFakeRequest())

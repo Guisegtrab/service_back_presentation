@@ -4,7 +4,7 @@ API NODE JS Analise Ergonomica do Trabalho.
 
 O objetivo da API e fornecer um questionário para coleta de dados ergonômicos nos postos de trabalho, API utiliza inteligência artificial para executar o processo de coleta de dados (DialogFlow).
 
-> ## APIs previstas para esse treinamento:
+> ## APIs previstas para esse projeto:
 1. [Cadastro](./requirements/signup.md)
 1. [Login](./requirements/login.md)
 1. [Criar questionário do estudo](./requirements/add-pesquisa.md)
